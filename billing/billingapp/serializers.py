@@ -1,5 +1,6 @@
 from .models import Client, Organization, Bills
 from rest_framework import serializers
+import random
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -16,6 +17,8 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
 class BillsSerializer(serializers.ModelSerializer):
     # вычислить 3 последних поля
+    fraud_score = serializers.SerializerMethodField()
+
     class Meta:
         model = Bills
         fields = (
@@ -29,3 +32,16 @@ class BillsSerializer(serializers.ModelSerializer):
             'service_class',
             'service_name'
             )
+
+    def get_fraud_score(self, service):
+        return random.randit(0, 1)
+
+    def classificator(self, service):
+        d = {1: 'консультация', 2: 'лечение', 3: 'стационар', 4: 'диагностика', 5: 'лаборатория'}
+        service_class = random.choice(d.keys())
+        service_name = d[service_class]
+        content = {
+            service_class,
+            service_name
+        }
+        return content
