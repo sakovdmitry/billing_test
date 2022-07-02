@@ -1,8 +1,8 @@
 from rest_framework import routers
-from .views import ClientViewSet, OrganizationViewSet, BillsViewSet
+from .views import OrganizationViewSet, BillsViewSet
 
 router = routers.DefaultRouter()
-router.register('clients', ClientViewSet, basename='client')
+# router.register('clients', ClientViewSet, basename='client')
 router.register(
     'organizations',
     OrganizationViewSet,
